@@ -5,6 +5,7 @@ const PORT = 6000;
 
 const {
   getAllRecipients,
+  getRecipientById,
   createNewRecipient,
 } = require("./handlers/recipientHandlers");
 
@@ -36,11 +37,11 @@ express()
   //User endpoints
 
   //Recipient endpoints
-  .get('/api/allRecipients', getAllRecipients)
+  .get('/api/allRecipients', getAllRecipients) //gets all recipients
+  .get('/api/recipient/:recipientId', getRecipientById) //gets recipient by their _id
   .post("/api/postRecipient", createNewRecipient) //creates a new recipient
 
   //TO DO
-  // .get('/api/recipient/:recipientId')
   // .delete('/api/recipient/:recipientId')
   // .patch('/api/recipient/gift/:recipientId')
   // .patch('/api/recipient/status/:recipientId')

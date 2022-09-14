@@ -1,4 +1,4 @@
-const {MongoClient} = require("mongodb");
+const {MongoClient, ObjectId} = require("mongodb");
 require("dotenv").config();
 const {MONGO_URI} = process.env;
 
@@ -16,6 +16,18 @@ const getAllRecipients = async(req, res) => {
     getUsers?
     res.status(200).json({status: 200, data: getUsers, message: "Users Retrieved!"})
     : res.status(404).json({status: 404, message: "Users not found :("});
+    client.close();
+}
+
+const getRecipientById = async(req,res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("xmasApp");
+    const userId = req.params.recipientId;
+    const findRecipient = await db.collection("recipientData").findOne({_id : ObjectId(userId)});
+    findRecipient? 
+    res.status(200).json({status: 200, data: findRecipient, message: "Recipient found!"})
+    : res.status(404).json({status: 404, message: "Recipient not found :("});
     client.close();
 }
 
@@ -44,19 +56,11 @@ const createNewRecipient = async (req, res) => {
 
 module.exports = {
     getAllRecipients,
+    getRecipientById,
     createNewRecipient,
 }
 
-// const getUsers = async (req, res) => {
-//     const client = new MongoClient(MONGO_URI, options);
-//     await client.connect();
-//     const db = client.db("myFinalProject");
-//     const users = await db.collection("users_data").find().toArray();
-//     users?
-//     res.status(200).json({status: 200, data: users, message: "All users successfully retrieved!"})
-//     : res.status(404).json({status: 404, message: "Error retrieving users."});
-//     client.close();
-// }
+
 
 // const getUserById = async (req, res) => {
 //   const client = new MongoClient(MONGO_URI, options);
