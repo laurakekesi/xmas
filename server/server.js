@@ -7,7 +7,14 @@ const {
   getAllRecipients,
   getRecipientById,
   createNewRecipient,
+  deleteRecipientByID
 } = require("./handlers/recipientHandlers");
+
+const {
+  getAllItems,
+  getItemById,
+  createNewItem,
+} = require("./handlers/itemHandlers")
 
 express()
   .use(function (req, res, next) {
@@ -33,18 +40,37 @@ express()
   })
 
   //Item endpoints
+  .get('/api/allItems', getAllItems) // gets all items
+  .get('/api/item/:itemId', getItemById) // gets item by item _id
+  .post('/api/postItem', createNewItem) // creates new item
 
   //User endpoints
 
   //Recipient endpoints
-  .get('/api/allRecipients', getAllRecipients) //gets all recipients
-  .get('/api/recipient/:recipientId', getRecipientById) //gets recipient by their _id
-  .post("/api/postRecipient", createNewRecipient) //creates a new recipient
+  .get('/api/allRecipients', getAllRecipients) // gets all recipients
+  .get('/api/recipient/:recipientId', getRecipientById) // gets recipient by their _id
+  .post("/api/postRecipient", createNewRecipient) // creates a new recipient
+  .delete('/api/recipient/:recipientId', deleteRecipientByID) // deletes recipient by their _id
 
-  //TO DO
-  // .delete('/api/recipient/:recipientId')
-  // .patch('/api/recipient/gift/:recipientId')
-  // .patch('/api/recipient/status/:recipientId')
+  // ITEM TO DO
+  //.get('/api/items/:userId', )
+  //.delete('/api/item/:itemId', )
+  //.patch('/api/itemCategory/:itemId', )
+  //.patch('/api/itemLink/:itemId', )
+  //.patch('/api/itemPrice/:itemId', )
+
+  // USER TO DO
+  //.get('/api/allUsers', )
+  //.get('/api/user/:userId', )
+  //.post('/api/postUser', )
+  //.delete('/api/user/:userId', )
+  //.patch('/api/userRecipients/:userId', )  
+  
+  // RECIPIENT TO DO
+  // .patch('/api/recipientGift/:recipientId')
+  // .patch('/api/recipientStatus/:recipientId')
+
+  
 
   .listen(PORT, () => {
     console.log(`Example app listening on PORT ${PORT}`);

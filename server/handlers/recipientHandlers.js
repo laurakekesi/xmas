@@ -23,8 +23,8 @@ const getRecipientById = async(req,res) => {
     const client = new MongoClient(MONGO_URI, options);
     await client.connect();
     const db = client.db("xmasApp");
-    const userId = req.params.recipientId;
-    const findRecipient = await db.collection("recipientData").findOne({_id : ObjectId(userId)});
+    const recipientId = req.params.recipientId;
+    const findRecipient = await db.collection("recipientData").findOne({_id : ObjectId(recipientId)});
     findRecipient? 
     res.status(200).json({status: 200, data: findRecipient, message: "Recipient found!"})
     : res.status(404).json({status: 404, message: "Recipient not found :("});
@@ -33,6 +33,17 @@ const getRecipientById = async(req,res) => {
 
 
 //****************** DELETE HANDLER ***********************/
+const deleteRecipientByID = async(req,res) => {
+    const client = new MongoClient(MONGO_URI,options);
+    await client.connect;
+    const db = client.db("xmasApp");
+    const recipientId = req.params.recipientId;
+    const deleteRecipient = await db.collection("recipientData").deleteOne({_id: ObjectId(recipientId)});
+    deleteRecipient?
+    res.status(200).json({status: 200, data: deleteRecipient, message: "Recipient deleted."})
+    :res.status(404).json({status: 404, message: "Recipient not found :("});
+    client.close();
+}
 
 //****************** POST HANDLER ***********************/
 const createNewRecipient = async (req, res) => {
@@ -58,6 +69,7 @@ module.exports = {
     getAllRecipients,
     getRecipientById,
     createNewRecipient,
+    deleteRecipientByID
 }
 
 
