@@ -33,6 +33,18 @@ const getItemById = async(req, res) => {
     client.close();
 }
 
+const getItemsByRecipient = async(req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+    const db = client.db("xmasApp");
+    const recipientId = req.params.recipientId;
+    const getItems = await db.collection("itemData").find({recipientId: recipientId}).toArray();
+    getItems?
+    res.status(200).json({status: 200, data: getItems, message: "Items retrieved!"})
+    : res.status(404).json({status: 404, message: "Items not found :("});
+    client.close();
+}
+
 //****************** DELETE HANDLER ***********************/
 
 //****************** POST HANDLER ***********************/
@@ -58,5 +70,6 @@ const createNewItem = async (req, res) => {
 module.exports = {
     getAllItems,
     getItemById,
+    getItemsByRecipient,
     createNewItem,
 };

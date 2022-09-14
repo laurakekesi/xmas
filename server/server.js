@@ -13,6 +13,7 @@ const {
 const {
   getAllItems,
   getItemById,
+  getItemsByRecipient,
   createNewItem,
 } = require("./handlers/itemHandlers")
 
@@ -42,6 +43,7 @@ express()
   //Item endpoints
   .get('/api/allItems', getAllItems) // gets all items
   .get('/api/item/:itemId', getItemById) // gets item by item _id
+  .get('/api/items/:recipientId', getItemsByRecipient) // gets all items for a specific recipient
   .post('/api/postItem', createNewItem) // creates new item
 
   //User endpoints
@@ -53,7 +55,6 @@ express()
   .delete('/api/recipient/:recipientId', deleteRecipientByID) // deletes recipient by their _id
 
   // ITEM TO DO
-  //.get('/api/items/:userId', )
   //.delete('/api/item/:itemId', )
   //.patch('/api/itemCategory/:itemId', )
   //.patch('/api/itemLink/:itemId', )
