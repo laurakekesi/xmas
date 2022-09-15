@@ -14,7 +14,11 @@ const {
   getAllItems,
   getItemById,
   getItemsByRecipient,
+  deleteItemById,
   createNewItem,
+  updateItemCategory,
+  updateItemPrice,
+  updateItemLink,
 } = require("./handlers/itemHandlers")
 
 express()
@@ -44,7 +48,11 @@ express()
   .get('/api/allItems', getAllItems) // gets all items
   .get('/api/item/:itemId', getItemById) // gets item by item _id
   .get('/api/items/:recipientId', getItemsByRecipient) // gets all items for a specific recipient
+  .delete('/api/item/:itemId', deleteItemById) // deletes item based off its _id.
   .post('/api/postItem', createNewItem) // creates new item
+  .patch('/api/itemCategory/:itemId', updateItemCategory) // updates item category based off of its _id
+  .patch('/api/itemPrice/:itemId', updateItemPrice) // updates item price based off of its _id
+  .patch('/api/itemLink/:itemId', updateItemLink) // updates item link based off of its _id
 
   //User endpoints
 
@@ -55,10 +63,8 @@ express()
   .delete('/api/recipient/:recipientId', deleteRecipientByID) // deletes recipient by their _id
 
   // ITEM TO DO
-  //.delete('/api/item/:itemId', )
-  //.patch('/api/itemCategory/:itemId', )
-  //.patch('/api/itemLink/:itemId', )
-  //.patch('/api/itemPrice/:itemId', )
+
+
 
   // USER TO DO
   //.get('/api/allUsers', )
