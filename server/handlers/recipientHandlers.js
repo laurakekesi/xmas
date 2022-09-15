@@ -62,14 +62,60 @@ const createNewRecipient = async (req, res) => {
 
 
 //****************** PATCH HANDLERS ***********************/
+const giveRecipientCompleteStatus = async(req,res) => {
+    const client = new MongoClient(MONGO_URI,options);
+    try {
+        await client.connect();
+        const db = client.db("xmasApp");
+        const recipientId = req.params.recipientId;
+        const query = {_id: ObjectId(recipientId)};
+        let newValues;
+        const itemToUpdate = await db.collection("recipientData").findOne(query);
+        if (itemToUpdate) {
+            newValues = { $set : {complete: true}}
+        }
+        const updatedRecipient = await db.collection("recipientData").updateOne(query, newValues);
+        updatedRecipient.modifiedCount===1?
+        res.status(200).json({status: 200, data: updatedRecipient, message: "Recipient set to complete"})
+        : res.status(404).json({status: 404 ,message: "Recipient not set to complete."})
+        client.close();        
+    }
+    catch {
+        res.status(500).json({status: 500, message: "Something went wrong... Server error."})
+    }    
+}
 
+const giveRecipientIncompleteStatus = async(req,res) => {
+    const client = new MongoClient(MONGO_URI,options);
+    try {
+        await client.connect();
+        const db = client.db("xmasApp");
+        const recipientId = req.params.recipientId;
+        const query = {_id: ObjectId(recipientId)};
+        let newValues;
+        const itemToUpdate = await db.collection("recipientData").findOne(query);
+        if (itemToUpdate) {
+            newValues = { $set : {complete: false}}
+        }
+        const updatedRecipient = await db.collection("recipientData").updateOne(query, newValues);
+        updatedRecipient.modifiedCount===1?
+        res.status(200).json({status: 200, data: updatedRecipient, message: "Recipient set to incomplete"})
+        : res.status(404).json({status: 404 ,message: "Recipient not set to incomplete."})
+        client.close();        
+    }
+    catch {
+        res.status(500).json({status: 500, message: "Something went wrong... Server error."})
+    }    
+}
 
 
 module.exports = {
     getAllRecipients,
     getRecipientById,
     createNewRecipient,
-    deleteRecipientByID
+    deleteRecipientByID,
+    giveRecipientCompleteStatus,
+    giveRecipientIncompleteStatus
 }
 
 

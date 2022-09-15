@@ -7,7 +7,9 @@ const {
   getAllRecipients,
   getRecipientById,
   createNewRecipient,
-  deleteRecipientByID
+  deleteRecipientByID,
+  giveRecipientCompleteStatus,
+  giveRecipientIncompleteStatus
 } = require("./handlers/recipientHandlers");
 
 const {
@@ -61,8 +63,8 @@ express()
   .get('/api/recipient/:recipientId', getRecipientById) // gets recipient by their _id
   .post("/api/postRecipient", createNewRecipient) // creates a new recipient
   .delete('/api/recipient/:recipientId', deleteRecipientByID) // deletes recipient by their _id
-
-  // ITEM TO DO
+  .patch('/api/recipientComplete/:recipientId', giveRecipientCompleteStatus) // sets recipient status to complete
+  .patch('/api/recipientIncomplete/:recipientId', giveRecipientIncompleteStatus) // sets recipient status to incomplete
 
 
 
@@ -73,11 +75,9 @@ express()
   //.delete('/api/user/:userId', )
   //.patch('/api/userRecipients/:userId', )  
   
-  // RECIPIENT TO DO
-  // .patch('/api/recipientGift/:recipientId')
-  // .patch('/api/recipientStatus/:recipientId')
-
   
+  // RECIPIENT TO DO
+  // ITEM TO DO
 
   .listen(PORT, () => {
     console.log(`Example app listening on PORT ${PORT}`);
