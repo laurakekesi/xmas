@@ -4,10 +4,12 @@ import Navbar from './Navbar';
 import GlobalStyles from './styles/GlobalStyles';
 
 const App = () => {
+  const date = "December, 25, 2022";
+
   return (
   <BrowserRouter>
   <GlobalStyles/>
-  <Navbar/>
+  <Navbar date = {date}/>
     <Routes>
       <Route path='/' element={<Homepage />}/>
     </Routes>
