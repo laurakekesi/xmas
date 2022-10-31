@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import treeIcon from "../images/treeIcon.png";
 import { Icon } from "react-icons-kit";
 import {ecommerce_dollar} from 'react-icons-kit/linea/ecommerce_dollar';
-import {dollar} from 'react-icons-kit/fa/dollar';
+import snowflakeBack from "../images/snowflakeBackground.png";
+
 
 const Navbar = ({ date }) => {
   const [days, setDays] = useState(0);
@@ -86,21 +87,27 @@ const PageLink = styled(Link)`
   text-decoration: none;
 `;
 const UntilDiv = styled.div`
-  color: white;
+  color: #a80b13;
+  font-weight: bold;
   margin-top: 5px;
+  font-size: 25px;
 `;
 const Number = styled.div`
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   width: 45px;
   border-radius: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 10px 3px 10px;
-  color: white;
+  color: #a80b13;
+  font-weight: bold;
+  font-size: 30px;
 `;
 const Unit = styled.div`
   color: white;
+  color: #a80b13;
+  font-weight: bold;
 `;
 const NumWrapper = styled.div`
   display: flex;
@@ -112,7 +119,7 @@ const SubWrapper = styled.div`
 `;
 const TopWrapper = styled.div`
   height: 70%;
-  background: #c91c24;
+  background-image: url(${snowflakeBack});
   display: flex;
   flex-direction: column;
   justify-content: center;
